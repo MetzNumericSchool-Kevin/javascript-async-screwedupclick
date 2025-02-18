@@ -101,3 +101,28 @@ voyage_en_cours.style.display = "block";
 // quand le voyage est terminé
 localisation_epoque.style.display = "block";
 voyage_en_cours.style.display = "none";
+
+function collecterArtefact(nomArtefact, callback) {
+  // Simuler un délai aléatoire
+  setTimeout(() => {
+    // Générer une chance aléatoire d'obtenir un artefact
+    const chance = Math.floor(Math.random() * 100); // Génère un nombre entre 0 et 99
+
+    if (chance >= 50) {
+      // Si la chance est supérieure ou égale à 50, un artefact est collecté
+      callback(true, nomArtefact); // On passe true et le nom de l'artefact
+    } else {
+      // Sinon, l'artefact n'est pas collecté
+      callback(false, nomArtefact); // On passe false et le nom de l'artefact
+    }
+  }, Math.floor(Math.random() * 100)); // Délai entre 0 et 99 ms
+}
+
+// Appel de la fonction avec un exemple de nom d'artefact et une fonction de rappel
+collecterArtefact("Epée magique", function(artefactCollecte, nomArtefact) {
+  if (artefactCollecte) {
+    console.log(`${nomArtefact} collecté !`);
+  } else {
+    console.log(`${nomArtefact} non trouvé.`);
+  }
+});
