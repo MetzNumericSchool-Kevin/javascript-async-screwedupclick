@@ -10,6 +10,8 @@ const formChoixEpoqueHtml = document.querySelector(".form__choix_epoque");
 const formRechercheArtefact = document.querySelector(
   ".form__recherche_artefact"
 );
+const localisation_epoque = document.querySelector(".localisation_epoque");
+const voyage_en_cours = document.querySelector(".voyage_en_cours");
 
 const epoques = {
   romaine: "Romaine",
@@ -77,3 +79,25 @@ function quandEpoqueChoisie(nomEpoque) {
 function quandRechercheArtefact(artefact) {
   // Utilisation de votre fonction collecterArtefact
 }
+
+function voyagerTemps(destination, callback) {
+  setTimeout(1000, 3000);
+  callback(voyagerTemps);
+  console.log("Execution de code quand le voyage est terminé.");
+}
+
+let nomEpoque;
+
+function afficher_loader() {
+  voyage_en_cours.style.display = "none";
+}
+
+function voyagerTemps() {}
+
+//récupération de l'élément localisation époque et voyage en cours
+localisation_epoque.style.display = "none";
+voyage_en_cours.style.display = "block";
+
+// quand le voyage est terminé
+localisation_epoque.style.display = "block";
+voyage_en_cours.style.display = "none";
