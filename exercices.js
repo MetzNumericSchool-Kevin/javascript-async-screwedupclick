@@ -12,6 +12,8 @@ const formRechercheArtefact = document.querySelector(
 );
 const localisation_epoque = document.querySelector(".localisation_epoque");
 const voyage_en_cours = document.querySelector(".voyage_en_cours");
+const rechercher_artefact = document.querySelector(".recherche_en_cours");
+const recuperer_artefact = document.querySelector(".recherche_en_cours");
 
 const epoques = {
   romaine: "Romaine",
@@ -73,18 +75,36 @@ creerLesChoixEpoque(epoques);
 function quandEpoqueChoisie(nomEpoque) {
   nomEpoqueActuelle = nomEpoque;
   // Utilisation de votre fonction voyagerTemps
+  //récupération de l'élément localisation époque et voyage en cours
+  localisation_epoque.style.display = "none";
+  voyage_en_cours.style.display = "block";
+}
+
+function afficherNomEpoque(nomEpoque) {
+  
+  //quand le voyage est terminé
+  localisation_epoque.style.display = "block";
+  voyage_en_cours.style.display = "none";
+}
+
+function voyagerTemps(destination, callback) {
+  console.log("Execution de code pour le voyage.");
+  setTimeout(function() {
+    callback(destination)
+    console.log("Execution de code quand le voyage est terminé.");
+  }, generationNombreAleatoireEntre(1000, 3000));
 }
 
 // Fonction appelée plus haut quand le formulaire de recherche d'artefact est soumis
 function quandRechercheArtefact(artefact) {
   // Utilisation de votre fonction collecterArtefact
+  rechercher_artefact.style.display = "none";
+  recuperer_artefact.style.display = "block";
+
+  rechercher_artefact.style.display = "block";
+  recuperer_artefact.style.display = "none";
 }
 
-function voyagerTemps(destination, callback) {
-  setTimeout(1000, 3000);
-  callback(voyagerTemps);
-  console.log("Execution de code quand le voyage est terminé.");
-}
 
 let nomEpoque;
 
@@ -92,34 +112,17 @@ function afficher_loader() {
   voyage_en_cours.style.display = "none";
 }
 
-function voyagerTemps() {}
-
-//récupération de l'élément localisation époque et voyage en cours
-localisation_epoque.style.display = "none";
-voyage_en_cours.style.display = "block";
-
-// quand le voyage est terminé
-localisation_epoque.style.display = "block";
-voyage_en_cours.style.display = "none";
-
 function collecterArtefact(nomArtefact, callback) {
   // Simuler un délai aléatoire
   setTimeout(() => {
     // Générer une chance aléatoire d'obtenir un artefact
     const chance = Math.floor(Math.random() * 100); // Génère un nombre entre 0 et 99
-
-    if (chance >= 50) {
-      // Si la chance est supérieure ou égale à 50, un artefact est collecté
-      callback(true, nomArtefact); // On passe true et le nom de l'artefact
-    } else {
-      // Sinon, l'artefact n'est pas collecté
-      callback(false, nomArtefact); // On passe false et le nom de l'artefact
-    }
-  }, Math.floor(Math.random() * 100)); // Délai entre 0 et 99 ms
+    callback(chance >= 50, nomArtefact);
+  }, generationNombreAleatoireEntre(1000, 3000)); // Délai
 }
 
 // Appel de la fonction avec un exemple de nom d'artefact et une fonction de rappel
-collecterArtefact("Epée magique", function(artefactCollecte, nomArtefact) {
+collecterArtefact("Epée magique", function (artefactCollecte, nomArtefact) {
   if (artefactCollecte) {
     console.log(`${nomArtefact} collecté !`);
   } else {
